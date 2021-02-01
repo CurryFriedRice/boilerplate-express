@@ -30,15 +30,6 @@ app.get("/now", function(req, res, next){
   });
 });
 
-app.get("/:word/echo" , function (req,res){
-    var string = req.params.word;
-  console.log("Hello!" + string);
-  res.json({
-    "echo" : string
-  });
-});
-
-
 app.get("/json", function(req, res){
 if(process.env.MESSAGE_STYLE == "uppercase")
   res.json({
@@ -50,5 +41,23 @@ if(process.env.MESSAGE_STYLE == "uppercase")
   });
 });
 
+app.get("/:word/echo" , function (req,res){
+    var string = req.params.word;
+  console.log("Hello!" + string);
+  res.json({
+    "echo" : string
+  });
+});
+
+
+app.route("/name").get(function(req,res){
+  var resString = req.query.first + " "  + req.query.last;
+  console.log("Namestring | " + resString);
+  res.json({
+    "name" : resString
+  });
+}).post(function(req,res){
+  
+});
 
  module.exports = app;
