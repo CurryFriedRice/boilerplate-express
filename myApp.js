@@ -30,6 +30,13 @@ app.get("/now", function(req, res, next){
   });
 });
 
+app.get("/:word/echo" , function (req,res){
+    var string = req.params.word;
+  console.log("Hello!" + string);
+  res.json({
+    "echo" : string
+  });
+});
 
 
 app.get("/json", function(req, res){
