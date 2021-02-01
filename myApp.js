@@ -1,4 +1,5 @@
 var express = require('express');
+var bodyParser = require('body-parser'); 
 var app = express();
 
 var absolutePath = __dirname+ "/views/index.html";
@@ -16,6 +17,9 @@ app.use(function middleware(req,res,next){
   console.log(resString); //NEEDS TO BE A STRING
   next();
 });
+
+app.use(bodyParser.urlencoded({extended : false}));
+
 
 app.get("/", function(req, res){
   res.sendFile(absolutePath);
@@ -56,7 +60,6 @@ app.route("/name").get(function(req,res){
   res.json({
     "name" : resString
   });
-}).post(function(req,res){
   
 });
 
