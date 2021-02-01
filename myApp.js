@@ -8,20 +8,20 @@ var assets =  __dirname + "/public";
 process.env.MESSAGE_STYLE="uppercase";
 
 app.use("", express.static(assets));
-
-
+app.use(bodyParser.urlencoded({extended : false}));
+app.use(bodyParser.json());
 
 app.use(function middleware(req,res,next){
   console.log("I'm a middleware...");
   var resString = req.method + " " + req.path + " - " + req.ip;
   console.log(resString); //NEEDS TO BE A STRING
+
   next();
 });
 
-app.use(bodyParser.urlencoded({extended : false}));
-
 
 app.get("/", function(req, res){
+
   res.sendFile(absolutePath);
 });
 
@@ -57,10 +57,22 @@ app.get("/:word/echo" , function (req,res){
 app.route("/name").get(function(req,res){
   var resString = req.query.first + " "  + req.query.last;
   console.log("Namestring | " + resString);
+
+  var bodString = req.body.first;
+  console.log("BodString | " + bodString);
+  
   res.json({
     "name" : resString
   });
-  
+});
+
+app.post("/name",function(req,res){
+  //console.log("POST HERE AT YOUR SERVICE!");
+  var bodString = req.body.first + " " + req.body.last;
+  console.log("BodString | " + bodString);
+  res.json({
+    "name" : bodString
+  });
 });
 
  module.exports = app;
